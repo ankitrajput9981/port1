@@ -4,7 +4,7 @@ const Contact = require("./src/contact");
 require("./src/conn");
 const app=express();
 
-const port= process.env.PORT || 3000;
+const port= process.env.PORT || 8000;
 
 // start
 const {MongoClient} = require('mongodb');
@@ -30,11 +30,41 @@ app.get("",(req,res)=>{
     res.render('in');
 });
 
+app.get("/contact",(req,res)=>{
+    res.render('contact');
+});
 
+app.get("/about",(req,res)=>{
+    res.render('about');
+});
 
+app.get("/projects",(req,res)=>{
+    res.render('projects');
+});
 
 
 app.post("",async(req,res)=>{
+    try{
+        const addingcontactData = new Contact(req.body)
+        console.log(req.body);
+        addingcontactData.save();
+        res.redirect("/");
+    } catch(err){
+        res.send(err);
+    }
+ });
+
+ app.post("/contact",async(req,res)=>{
+    try{
+        const addingcontactData = new Contact(req.body)
+        console.log(req.body);
+        addingcontactData.save();
+        res.redirect("/");
+    } catch(err){
+        res.send(err);
+    }
+ });
+ app.post("/about",async(req,res)=>{
     try{
         const addingcontactData = new Contact(req.body)
         console.log(req.body);
